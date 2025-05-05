@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+require "plasma"
+require_relative "../lib/<%= name %>/version"
+
+module <%= name.camelize %>
+  class Application < Plasma::Application
+    # Configure your application here
+    self.initialize! do |config|
+      # Name will be automatically set as "<%= name.camelize %> MCP Server" if not set
+      # config.name = "Custom Application Name"
+      config.module_name = "<%= name.camelize %>"
+
+      config.version = <%= name.camelize %>::VERSION
+      config.enable_log = true
+
+      # Example of requiring an environment variable (uncomment to use)
+      # config.require_environment_variable("API_KEY")
+
+      # Example of setting an environment variable (uncomment to use)
+      # config.set_environment_variable("DEBUG_MODE", "true")
+    end
+  end
+end

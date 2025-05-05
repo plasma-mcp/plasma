@@ -1,0 +1,228 @@
+# <%= name.camelize %> MCP Server
+
+This is a Model Context Protocol (MCP) server built with `plasma-mcp` framework.
+
+## Using with Claude
+
+To use this MCP server with Claude, add the following configuration to your Claude settings:
+
+```json
+{
+  "mcpServers": {
+    "<%= name.underscore %>": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "ghcr.io/your-org/<%= name.underscore %>:latest"
+      ]
+    }
+  }
+}
+```
+
+For local development without Docker:
+
+```json
+{
+  "mcpServers": {
+    "<%= name.underscore %>": {
+      "command": "plasma",
+      "args": [
+        "server",
+        "/path/to/<%= name.underscore %>"
+      ]
+    }
+  }
+}
+```
+
+## Using with VS Code
+
+Add the following JSON block to your User Settings (JSON) file in VS Code. You can do this by pressing `Ctrl + Shift + P` and typing `Preferences: Open User Settings (JSON)`.
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "<%= name.underscore %>": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "ghcr.io/your-org/<%= name.underscore %>:latest"
+        ]
+      }
+    }
+  }
+}
+```
+
+Optionally, you can add a similar example (i.e. without the `mcp` key) to a file called `.vscode/mcp.json` in your workspace. This will allow you to share the configuration with others.
+
+```json
+{
+  "servers": {
+    "<%= name.underscore %>": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "ghcr.io/your-org/<%= name.underscore %>:latest"
+      ]
+    }
+  }
+}
+```
+
+For local development without Docker:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "<%= name.underscore %>": {
+        "command": "plasma",
+        "args": [
+          "server",
+          "/path/to/<%= name.underscore %>"
+        ]
+      }
+    }
+  }
+}
+```
+
+More about using MCP server tools in VS Code's [agent mode documentation](https://code.visualstudio.com/docs/editor/agent-mode).
+
+## Setup
+
+1. Install dependencies:
+
+```bash
+bundle install
+```
+
+2. Configure environment variables in `.env` file
+
+## Running the Server
+
+To start the MCP server:
+
+```bash
+plasma server
+```
+
+## Authentication
+
+To run the local authentication system:
+
+```bash
+plasma auth
+```
+
+## Project Structure
+
+```
+<%= name %>/
+├── app/
+│   ├── prompts/        # MCP prompts
+│   ├── resources/      # MCP resources
+│   ├── tools/          # MCP tools
+│   ├── variables/      # Per-session variables
+│   └── records/        # Stored objects
+├── config/
+│   ├── initializers/   # Preload configuration
+│   ├── application.rb  # MCP server configuration
+│   └── boot.rb         # Launch ignition sequence
+└── .env                # Environment variables
+```
+
+## Adding New Components
+
+### Adding a new Tool
+
+Generate a new tool using the CLI:
+
+```bash
+plasma g tool my_tool name:string description:string
+```
+
+This will generate a tool file in `app/tools/my_tool.rb` that follows this structure:
+
+```ruby
+# app/tools/my_tool.rb
+module <%= name.camelize %>
+  module Tools
+    class MyTool < Plasma::Tool
+      param :name,
+            type: :string,
+            description: "Name parameter description"
+
+      param :description,
+            type: :string,
+            description: "Description parameter description"
+
+      def call
+        respond_with(:text,
+          text: "Your tool response here"
+        )
+      end
+    end
+  end
+end
+```
+
+### Adding a new Prompt
+
+Generate a new prompt using the CLI:
+
+```bash
+plasma g prompt my_prompt
+```
+
+This will generate a prompt file in `app/prompts/my_prompt.rb`:
+
+```ruby
+# app/prompts/my_prompt.rb
+module <%= name.camelize %>
+  module Prompts
+    class MyPrompt
+      def self.system_prompt
+        <<~PROMPT
+          Your system prompt content here.
+        PROMPT
+      end
+    end
+  end
+end
+```
+
+### Adding a new Resource
+
+Generate a new resource using the CLI:
+
+```bash
+plasma g resource my_resource
+```
+
+### Adding a new Variable
+
+Generate a new variable using the CLI:
+
+```bash
+plasma g variable my_variable
+```
+
+## Interactive Console
+
+To start an interactive console with your plasma-mcp application loaded:
+
+```bash
+plasma console
+```
+
+This will give you access to your project's environment where you can interact with your components, storage variables, and other features.

@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+module <%= module_name %>
+  module Prompts
+    class <%= name.camelize %> < Plasma::Prompt
+      # Define the system prompt content
+      with_metadata do
+        {
+          name: "<%= name.underscore %>",
+          description: "A <%= name.underscore %> prompt",
+          arguments: <%= parameters.map { |name, type| { name: name, description: "The #{name} parameter", required: true } }.to_json %>
+        }
+      end
+
+      def call
+        messages = [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text: "Process these parameters: <%= parameters.keys.map { |p| "#{p}: #{p}" }.join(", ") %>"
+            }
+          }
+        ]
+
+        MessageResponse[message: messages]
+      end
+    end
+  end
+end

@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+module <%= module_name %>
+  module Resources
+    class <%= name.camelize %> < Plasma::Resource
+      # Required by MCP - defines the resource schema
+      with_metadata do
+        {
+          name: "<%= name.underscore %>",
+          description: "A <%= name.underscore %> resource",
+          content_schema: <%= parameter_schema.to_json %>
+        }
+      end
+
+      # Required by MCP - defines the resource content
+      def content
+        {
+          id: id,
+          <%= parameters.map { |name, type| "#{name}: #{name}" }.join(",\n          ") %>
+        }
+      end
+
+      attr_reader :id<%= parameters.map { |name, type| ", :#{name}" }.join %>
+
+      def initialize(id:, <%= parameters.map { |name, type| "#{name}:" }.join(", ") %>)
+        @id = id
+        <%= parameters.map { |name, type| "@#{name} = #{name}" }.join("\n        ") %>
+        super
+      end
+
+      def call
+        TextResponse[text: "Here's the data"]
+      end
+    end
+  end
+end

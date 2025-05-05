@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+# Initial ignition sequence
+require "bundler/setup"
+Bundler.require(:default, ENV["PLASMA_ENV"] || "development")
+
+# Load environment variables from .env file
+require "dotenv"
+Dotenv.load
+
+# Load initializers
+Dir[File.join(__dir__, "initializers/**/*.rb")].sort.each { |f| require f }

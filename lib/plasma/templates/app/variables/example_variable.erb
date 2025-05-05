@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+module <%= module_name %>
+  module Variables
+    # A <%= name.underscore %> variable
+    class <%= name.camelize %> < Plasma::Storage::Variable
+      default <%= default_value %>
+
+      <% operations.each do |op| %>
+      def self.<%= op[:name] %>(<%= op[:params].join(", ") %>)
+        self.set(self.get <%= op[:operator] %> <%= op[:params].first %>)
+      end
+      <% end %>
+
+      def self.clear
+        self.set(<%= default_value %>)
+      end
+    end
+  end
+end

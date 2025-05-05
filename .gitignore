@@ -1,0 +1,64 @@
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Bundler
+.bundle/
+vendor/bundle/
+
+# RSpec
+.rspec_status
+
+# YARD
+.yardoc/
+doc/
+
+# Ruby version manager
+# Note: .ruby-version is tracked in version control by default
+# Use 'git add -f .ruby-version' to override if needed
+.rbenv/
+.rvm/
+
+# Test coverage
+coverage/
+
+# Build artifacts
+*.gem
+*.rbc
+*.so
+*.o
+*.a
+mkmf.log

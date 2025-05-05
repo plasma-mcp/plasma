@@ -1,0 +1,18 @@
+FROM ruby:3.4.3-slim
+
+WORKDIR /<%= name %>
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install dependencies
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# Copy application code
+COPY . .
+
+# Command to run the application
+CMD ["bundle", "exec", "plasma", "server"]

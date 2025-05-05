@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+module <%= module_name %>
+  module Tools
+    # A <%= kebab_name %> tool
+    class <%= name.camelize %>Tool < Plasma::Tool
+      <% params.each do |name, type| %>
+      param :<%= name %>, type: <%= type.capitalize %>, description: "<%= name.capitalize %> parameter", required: true
+      <% end %>
+
+      # Required, implements the tool functionality
+      def call
+        # Example of different response types:
+
+        # Text response with parameters
+        respond_with(:text, text: "Hello from <%= name.camelize %>Tool with params: <% params.each do |name, type| %>#{params[:<%= name %>]} <% end %>")
+
+        # Image response with mime type
+        # respond_with(:image, data: image_data, mime_type: "image/png")
+
+        # Image response without mime type
+        # respond_with(:image, data: image_data)
+
+        # Resource response with mime type
+        # respond_with(:resource, mime_type: "text/html", text: "Resource content", uri: "https://example.com")
+
+        # Resource response without mime type
+        # respond_with(:resource, text: "Resource content", uri: "https://example.com")
+
+        # Error response
+        # respond_with(:error, text: "An error occurred")
+      end
+    end
+  end
+end
