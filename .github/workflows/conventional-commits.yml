@@ -33,6 +33,7 @@ jobs:
             api
             docs
             tests
+            security
           # Configure that a scope must be provided.
           requireScope: false
           # Configure that the subject must be in the imperative mood.
