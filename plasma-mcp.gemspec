@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "json", "~> 2.7.1"
   spec.add_dependency "model-context-protocol-rb", "~> 0.3.1"
   spec.add_dependency "omniauth", "~> 2.1.3"
-  spec.add_dependency "puma", "~> 6.3.0"
+  spec.add_dependency "puma", "~> 6.6.0"
   spec.add_dependency "rack", "~> 3.1.13"
   spec.add_dependency "sinatra", "~> 4.1.1"
   spec.add_dependency "sqlite3", "~> 2.6.0"
