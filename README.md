@@ -12,7 +12,7 @@ Plasma is a Ruby-based SDK that provides a Rails-inspired, convention-over-confi
 
 > [🚀 Getting Started](#getting-started) • [📖 Usage Guide](#usage-guide) • [⚙️ Development](#development)
 
-> ⚠️ **Warning**: Plasma is currently in pre-alpha development (0.0.1-pre). Until version 0.1.0 is released, all versions (including patch updates) may contain breaking changes. This allows us to rapidly iterate and improve the API based on early feedback. See our [roadmap](docs/ROADMAP.md) for more details.
+> ⚠️ **Warning**: Plasma is currently in pre-alpha development (0.0.x-pre). Until version 0.1.0 is released, all versions (including patch updates) may contain breaking changes. This allows us to rapidly iterate and improve the API based on early feedback. See our [roadmap](docs/ROADMAP.md) for more details.
 
 ## Features
 
