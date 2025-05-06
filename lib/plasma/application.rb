@@ -77,17 +77,17 @@ module Plasma
 
       # Find all prompt classes
       def prompts
-        descendants_of("Prompts")
+        Prompt.descendants
       end
 
       # Find all resource classes
       def resources
-        descendants_of("Resources")
+        Resource.descendants
       end
 
       # Find all tool classes
       def tools
-        descendants_of("Tools")
+        Tool.descendants
       end
 
       private
