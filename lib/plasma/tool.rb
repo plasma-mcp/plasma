@@ -48,9 +48,15 @@ module Plasma
         module_name = to_s.split("::")[0..-2].join("::").constantize
         class_name = to_s.split("::").last.to_sym
         loader = Zeitwerk::Registry.loaders.find do |l|
-          l.instance_variable_get(:@inceptions).instance_variable_get(:@map)[module_name]&.key?(class_name)
+          l.instance_variable_get(:@inceptions)&.instance_variable_get(:@map)&.dig(module_name)&.key?(class_name)
         end
-        path = loader.instance_variable_get(:@inceptions).instance_variable_get(:@map)[module_name][class_name]
+        
+        return nil unless loader
+
+        path = loader.instance_variable_get(:@inceptions)&.
+               instance_variable_get(:@map)&.
+               dig(module_name, class_name)
+               
         return nil unless path
 
         File.expand_path(path)
