@@ -44,13 +44,14 @@ module Plasma
         @description = read_comments_from_file(file_path).presence || "No description available"
       end
 
-      def file_path # rubocop:disable Metrics/AbcSize
+      def file_path
         module_name = to_s.split("::")[0..-2].join("::").constantize
         class_name = to_s.split("::").last.to_sym
-        loader = Zeitwerk::Registry.loaders.find do |l|
-          l.instance_variable_get(:@inceptions).instance_variable_get(:@map)[module_name]&.key?(class_name)
-        end
-        path = loader.instance_variable_get(:@inceptions).instance_variable_get(:@map)[module_name][class_name]
+
+        loader = ClassLoader.find_loader(module_name, class_name)
+        return nil unless loader
+
+        path = ClassLoader.get_path_from_loader(loader, module_name, class_name)
         return nil unless path
 
         File.expand_path(path)
