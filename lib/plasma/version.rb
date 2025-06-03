@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Plasma
-  VERSION = "0.0.2.pre.5"
+  VERSION = "0.0.2.pre.6"
 end

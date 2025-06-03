@@ -13,6 +13,7 @@ RUN bundle install
 
 # Copy application code
 COPY . .
+VOLUME /<%= name %>/.env
 
 # Command to run the application
 CMD ["bundle", "exec", "plasma", "server"]

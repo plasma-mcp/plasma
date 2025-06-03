@@ -5,7 +5,7 @@ module Plasma
   class ClassLoader
     class << self
       def find_loader(module_name, class_name)
-        Zeitwerk::Registry.loaders.find do |l|
+        Array(Zeitwerk::Registry.loaders).find do |l|
           inceptions = l.instance_variable_get(:@inceptions)
           next unless inceptions
 

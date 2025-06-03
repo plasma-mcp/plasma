@@ -107,5 +107,42 @@ module Plasma
         "#{name}: { type: \"#{type}\" }"
       end.join(",\n    ")
     end
+
+    # For variable templates
+    def default_value
+      # Use the 'default' parameter if provided, otherwise use a sensible default based on variable type
+      if params.key?("default")
+        # If it's a string, wrap in quotes
+        if params["default"].is_a?(String) || !%w[true false null].include?(params["default"].downcase)
+          "\"#{params["default"]}\""
+        else
+          params["default"]
+        end
+      else
+        # Default to empty string if no default provided
+        "\"\""
+      end
+    end
+
+    # For variable templates - operations like increment, decrement, etc.
+    def operations
+      return [] unless @component_type == "variable"
+
+      # Define standard operations based on params
+      ops = []
+
+      # Add increment/decrement for numeric variables
+      if params.values.any? { |type| %w[number integer].include?(type) }
+        ops << { name: "increment", params: ["value"], operator: "+" }
+        ops << { name: "decrement", params: ["value"], operator: "-" }
+      end
+
+      # Add append for string variables
+      if params.values.any? { |type| type == "string" } || params.empty?
+        ops << { name: "append", params: ["value"], operator: "+" }
+      end
+
+      ops
+    end
   end
 end
