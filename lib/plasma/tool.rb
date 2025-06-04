@@ -85,47 +85,9 @@ module Plasma
         value = input[key.to_s]
         raise ArgumentError, "Missing required parameter: #{key}" if config[:required] && value.nil?
 
-        coerced[key] = coerce_value(value, config[:type])
+        coerced[key] = Parameter.new(value, config[:type]).coerce!
       end
       coerced
     end
-
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
-    # This method is deliberately complex as it handles type coercion and validation
-    def coerce_value(value, type)
-      return if value.nil?
-
-      case type.to_s.downcase.to_sym
-      when :integer then begin
-        Integer(value)
-      rescue StandardError
-        raise ArgumentError, "Invalid integer: #{value}"
-      end
-      when :float then begin
-        Float(value)
-      rescue StandardError
-        raise ArgumentError, "Invalid float: #{value}"
-      end
-      when :boolean then !!(value == true || value.to_s.downcase == "true")
-      when :string  then value.to_s
-      when :array
-        if value.is_a?(Array)
-          value
-        elsif value.is_a?(String)
-          begin
-            parsed = JSON.parse(value)
-            raise ArgumentError, "Invalid array: #{value}" unless parsed.is_a?(Array)
-
-            parsed
-          rescue JSON::ParserError
-            raise ArgumentError, "Invalid array: #{value}"
-          end
-        else
-          raise ArgumentError, "Invalid array: #{value}"
-        end
-      else value
-      end
-    end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
   end
 end

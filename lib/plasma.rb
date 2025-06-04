@@ -11,6 +11,7 @@ require_relative "plasma/cli"
 require_relative "plasma/prompt"
 require_relative "plasma/resource"
 require_relative "plasma/tool"
+require_relative "plasma/parameter"
 require_relative "plasma/storage"
 
 module Plasma
