@@ -136,6 +136,7 @@ module MyServer
   class Application < Plasma::Application
     self.initialize! do |config|
       config.name = "My Custom Server Name"
+    end
   end
 end
 ```
