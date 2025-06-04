@@ -70,19 +70,25 @@ Congratulations. We have liftoff! 🚀
 ## Usage Guide
 
 ### Project Structure
+
 ```
 my_server/
 ├── app/
 │   ├── prompts/        # MCP prompts
+│   ├── records/        # Stored objects (e.g. `task_records`)
 │   ├── resources/      # MCP resources
 │   ├── tools/          # MCP tools
-│   ├── variables/      # Per-session variables (e.g. `current_user_email_variable`)
-│   └── records/        # Stored objects (e.g. `task_records`)
+│   └── variables/      # Per-session variables (e.g. `current_user_email_variable`)
 ├── config/
-│   ├── initializers/   # Preload configuration
 │   ├── application.rb  # MCP server configuration
-│   └── boot.rb         # Launch ignition sequence
-└── .env                # Environment variables
+│   ├── boot.rb         # Launch ignition sequence
+│   └── initializers    # Preloaded configuration
+├── Dockerfile          # Dockerfile for containerized deployment
+├── Gemfile             # Application dependencies
+├── lib/
+│   └── my_server/      # Main application module
+├── README.md           # Usage instructions
+└── .env                # Environment variables via dotenv
 ```
 
 ### Creating Tools
