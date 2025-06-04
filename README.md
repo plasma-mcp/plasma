@@ -76,7 +76,7 @@ my_server/
 │   ├── prompts/        # MCP prompts
 │   ├── resources/      # MCP resources
 │   ├── tools/          # MCP tools
-│   ├── variables/      # Per-sesion variables (e.g. `current_user_email_variable`)
+│   ├── variables/      # Per-session variables (e.g. `current_user_email_variable`)
 │   └── records/        # Stored objects (e.g. `task_records`)
 ├── config/
 │   ├── initializers/   # Preload configuration
